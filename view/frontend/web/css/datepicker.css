@@ -1,0 +1,12 @@
+.datepicker-option .ui-datepicker-trigger {
+    margin-left: 5px;
+    vertical-align: middle;
+}
+
+.datepicker-option .ui-datepicker {
+    z-index: 9999 !important;
+}
+
+.datepicker-option input.datetime-picker {
+    width: calc(100% - 32px);
+}
