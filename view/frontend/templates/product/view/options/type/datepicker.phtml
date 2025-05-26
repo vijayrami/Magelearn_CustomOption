@@ -1,49 +1,49 @@
 <?php
-// app/code/Magelearn/CustomOption/view/frontend/templates/product/view/options/type/datepicker.phtml
-
-/** @var $block \Magelearn\CustomOption\Block\Product\View\Options\Type\Datepicker */
-$option = $block->getOption();
-$fieldId = 'options_' . $option->getId() . '_date';
-$class = $option->getIsRequire() ? ' required' : '';
+/**
+ * @var $block \Magelearn\CustomOption\Block\Product\View\Options\Type\Datepicker
+ */
+$_option = $block->getOption();
+$_optionId = $_option->getId();
+$_optionRequired = $_option->getIsRequire();
+$_optionTitle = $_option->getTitle();
+$_optionPrice = $block->getFormattedPrice();
 ?>
 
-<div class="field datepicker-option<?= $block->escapeHtmlAttr($class) ?>">
-    <label class="label" for="<?= $block->escapeHtmlAttr($fieldId) ?>">
-        <span><?= $block->escapeHtml($option->getTitle()) ?></span>
-        <?= /* @noEscape */ $block->getFormattedPrice() ?>
+<div class="field datepicker">
+    <label class="label" for="options_<?= $block->escapeHtmlAttr($_optionId) ?>">
+        <span><?= $block->escapeHtml($_optionTitle) ?></span>
+        <?php if ($_optionPrice): ?>
+            <span class="price-notice"><?= /* @noEscape */ $_optionPrice ?></span>
+        <?php endif; ?>
     </label>
     <div class="control">
-        <input type="text"
-               id="<?= $block->escapeHtmlAttr($fieldId) ?>"
-               class="product-custom-option datetime-picker input-text"
-               name="options[<?= $block->escapeHtmlAttr($option->getId()) ?>]"
-               data-selector="options[<?= $block->escapeHtmlAttr($option->getId()) ?>]"
-               <?= $option->getIsRequire() ? 'data-validate="{\'required\':true}"' : '' ?>
-               autocomplete="off"
-        />
+        <input type="text" 
+               name="options[<?= $block->escapeHtmlAttr($_optionId) ?>]" 
+               id="options_<?= $block->escapeHtmlAttr($_optionId) ?>" 
+               class="input-text<?= $_optionRequired ? ' required' : '' ?> product-custom-option datepicker-input"
+               <?= $_optionRequired ? 'data-validate="{required:true}"' : '' ?>
+               data-mage-init='{"Magelearn_CustomOption/js/datepicker": {
+                   "dateFormat": "mm/dd/yy",
+                   "showTime": false,
+                   "required": <?= $_optionRequired ? 'true' : 'false' ?>,
+                   "buttonText": "<?= $block->escapeHtml(__('Select Date')) ?>",
+                   "yearRange": "c-10:c+10"
+               }}'
+               readonly="readonly"
+               value="<?= $block->escapeHtmlAttr($block->getDefaultValue()) ?>" />
     </div>
 </div>
 
-<script>
-require([
-    'jquery',
-    'mage/calendar'
-], function($) {
-    'use strict';
-    
-    $(function() {
-        $('#<?= $block->escapeJs($fieldId) ?>').calendar({
-            dateFormat: 'mm/dd/yy',
-            showsTime: false,
-            buttonImage: '<?= $block->escapeUrl($block->getViewFileUrl('Magento_Theme::calendar.png')) ?>',
-            buttonText: '<?= $block->escapeJs(__('Select Date')) ?>',
-            showOn: 'both',
-            buttonImageOnly: true,
-            minDate: 0,
-            changeMonth: true,
-            changeYear: true,
-            yearRange: '-0:+10'
-        });
-    });
-});
+<script type="text/x-magento-init">
+{
+    "#options_<?= $block->escapeJs($_optionId) ?>": {
+        "Magelearn_CustomOption/js/datepicker": {
+            "dateFormat": "mm/dd/yy",
+            "showTime": false,
+            "required": <?= $_optionRequired ? 'true' : 'false' ?>,
+            "buttonText": "<?= $block->escapeJs(__('Select Date')) ?>",
+            "yearRange": "c-10:c+10"
+        }
+    }
+}
 </script>
