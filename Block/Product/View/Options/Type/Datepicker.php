@@ -23,4 +23,8 @@ class Datepicker extends AbstractOptions
         // Get the template from this block directly
         return $this->toHtml();
     }
+    public function getOption()
+    {
+        return $this->_option;
+    }
 }

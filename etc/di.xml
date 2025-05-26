@@ -8,5 +8,8 @@
                 <item name="datepicker" xsi:type="string">Magelearn\CustomOption\Model\Product\Option\Type\Datepicker</item>
             </argument>
         </arguments>
+        <plugin name="magelearn_customoption_add_datepicker_type"
+                type="Magelearn\CustomOption\Plugin\AddDatepickerOptionType" />
     </type>
 </config>
+

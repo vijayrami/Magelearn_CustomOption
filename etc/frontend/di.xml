@@ -2,7 +2,10 @@
     <type name="Magento\Catalog\Block\Product\View\Options">
         <arguments>
             <argument name="optionTypes" xsi:type="array">
-                <item name="datepicker" xsi:type="string">Magelearn\CustomOption\Block\Product\View\Options\Type\Datepicker</item>
+                <item name="datepicker" xsi:type="array">
+                    <item name="block" xsi:type="string">Magelearn\CustomOption\Block\Product\View\Options\Type\Datepicker</item>
+                    <item name="template" xsi:type="string">Magelearn_CustomOption::product/view/options/type/datepicker.phtml</item>
+                </item>
             </argument>
         </arguments>
     </type>
